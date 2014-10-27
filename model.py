@@ -11,7 +11,7 @@ Base = declarative_base()
 
 #Creating user class that inherits base whatever from SQLAlhemy
 class User(Base):
-    #setting table name to "users"
+    #setting up the sql syntax for sqlalchemy
     __tablename__ = "users"
 
     #setting column names (or attributes in python) with variables for primary key
@@ -28,7 +28,7 @@ class Movie(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=True)
-    released_at = Column(DateTime) 
+    released_at = Column(DateTime, nullable=True) 
     imdb_url = Column(String(64), nullable=True)
 
 class Rating(Base):
