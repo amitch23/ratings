@@ -2,11 +2,20 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 ENGINE = None
 Session = None
 
+engine = create_engine("sqlite:///ratings.db", echo=False)
+session = scoped_session(sessionmaker(bind=engine,
+                                      autocommit = False,
+                                      autoflush = False))
+
 Base = declarative_base()
+Base.query = session.query_property()
 
 
 #Creating user class that inherits base whatever from SQLAlhemy
@@ -31,29 +40,33 @@ class Movie(Base):
     released_at = Column(DateTime, nullable=True) 
     imdb_url = Column(String(64), nullable=True)
 
+
 class Rating(Base):
 
     __tablename__ = "ratings"
 
     id = Column(Integer, primary_key=True)
     movie_id = Column(Integer, nullable=True)
-    user_id = Column(Integer, nullable=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
     rating = Column(Integer, nullable=True)
 
+    user = relationship("User",backref=backref("ratings", order_by=id))
         
 
 ### End class declarations
 
 #function that connects to the ratings database and creates a cursor (henceforward called "session")
 #
-def connect():
-    global ENGINE
-    global Session
 
-    ENGINE = create_engine("sqlite:///ratings.db", echo=True)
-    Session = sessionmaker(bind=ENGINE)
 
-    return Session()
+# def connect():
+#     global ENGINE
+#     global Session
+#     ENGINE = create_engine("sqlite:///ratings.db", echo=True)
+#     Session = sessionmaker(bind=ENGINE)
+
+#     return session 
+
 
 
 def main():
