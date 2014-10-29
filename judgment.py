@@ -22,14 +22,36 @@ def login():
 
     if not email or not password:
         return "Please enter your email and password."
+     #check if user is in db, if not, redirect them to a new profile link
+     #if they ARE in the system, go to list of users
+     #something about adding login info to the session dictionary
 
+     # return render_template("profile.html", email = email,
+    #                                     password = password)
     return "email: %s, password: %s" % (email, password)
+
+
+@app.route("/new_user")
+def new_user():
 
     #check if user is in database.
     # if not, add user to database
-    # return render_template("profile.html", email = email,
-    #                                     password = password)
+    
+    
+    # model.connect()
 
+    #insert email and password into database
+
+    u = model.User()
+    
+    #set attribute, name, to email
+    u.email = request.form["email"]
+    u.password = request.form["password"]
+
+    model.session.add(u)
+    model.session.commit()
+
+    return ""
 
 
 if __name__ == "__main__":

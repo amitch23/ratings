@@ -59,13 +59,13 @@ class Rating(Base):
 #
 
 
-# def connect():
-#     global ENGINE
-#     global Session
-#     ENGINE = create_engine("sqlite:///ratings.db", echo=True)
-#     Session = sessionmaker(bind=ENGINE)
+def connect():
+    global ENGINE
+    global Session
+    ENGINE = create_engine("sqlite:///ratings.db", echo=True)
+    Session = sessionmaker(bind=ENGINE)
 
-#     return session 
+    return session 
 
 
 
