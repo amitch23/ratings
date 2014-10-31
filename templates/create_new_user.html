@@ -1,7 +1,7 @@
-<html>
-<head>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block body %}
+
+
 <style>
 
 /*orange: D95B43
@@ -18,7 +18,7 @@ font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 
-#login_box{
+#newprofile_box{
 
 width: 360px;
 background-color: #ECD078;
@@ -49,10 +49,10 @@ margin-left: 60px;
 
 <body>
 
-<div id="login_box">
-    <form method="post" action="/login" id="login">
-        <h1> Log in to FilmRecs!</h1>
-        <p>Input your email and pasword if you're a pre-existing user. To sign up, input your email and invent a password and click "create new profile".</p>
+<div id="newprofile_box">
+    <form method="post" action="/create_new_user" id="new_user">
+        <h1>Create New Profile</h1>
+        <p>Input your email and pasword.</p>
 
         <div id="email">
             <p>Email</p>
@@ -64,16 +64,20 @@ margin-left: 60px;
             <input type="text" name="password">
         </div>
 
+        <div id="age">
+            <p>Age</p>
+            <input type="text" name="age">
+        </div>
+
+        <div id="zipcode">
+            <p>Zipcode</p>
+            <input type="text" name="zipcode">
+        </div>
+
+
         <button type="submit" id="submit_button" name="submit">Submit</button> 
-
-
-        <a href="/new_user">Create New Profile</a>
-
-
-
 
 
     </form>
 </div>
- </body>
- </html>
+ {% endblock %}
